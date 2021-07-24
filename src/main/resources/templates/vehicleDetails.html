@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Vehicle Details</title>
+</head>
+<body>
+<h4>Vehicle</h4>
+<form>
+    <table>
+        <tr>
+            <td>
+                <label for="vin">VIN: </label>
+            </td>
+            <td>
+                <input id="vin" th:value="${vehicle.getVIN()}" type="text" name="VIN"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="plate">Plate Number: </label>
+            </td>
+            <td>
+                <input id="plate" th:value="${vehicle.getPlateNumber()}" type="text" name="plateNumber"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Date of Registration: </label>
+            </td>
+            <td>
+                <input th:value="${vehicle.getDateOfRegistration()}" type="text" name="dateOfRegistration"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Vehicle Type: </label>
+            </td>
+            <td>
+                <input th:value="${vehicle.getVehicleTypeModel().getName()}" type="text" name="vehicleTypeModel"/>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" value="Save"/>
+            </td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>
