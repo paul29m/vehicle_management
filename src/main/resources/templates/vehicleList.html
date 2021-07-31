@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Vehicle List</title>
+
+</head>
+<body>
+<h4></h4>
+<table>
+    <tr>
+        <th>VIN</th>
+        <th>Plate Number</th>
+        <th>Date of Registration</th>
+        <th>Vehicle Type</th>
+    </tr>
+    <tr th:each="vehicle : ${vehicles}">
+        <td> <a th:href="@{|/vehicles/findOne/${vehicle.getVehicleId()}|}" th:text="${vehicle.getVIN()}"></a> </td>
+        <td th:text="${vehicle.getPlateNumber()}"></td>
+        <td th:text="${vehicle.getDateOfRegistration()}"></td>
+        <td th:text="${vehicle.getVehicleTypeModel().getName()}"></td>
+    </tr>
+    <tr>
+        <td>
+            <a th:href="@{|/vehicles/create|}">Create NEW Entry</a>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Vehicle Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
 <h4>Vehicle</h4>
-<form>
+<form action="#" th:action="@{/vehicles/saveOrUpdateByModel}" th:object="${vehicle}" method="post">
     <table>
         <tr>
             <td>
@@ -14,6 +16,7 @@
             </td>
             <td>
                 <input id="vin" th:value="${vehicle.getVIN()}" type="text" name="VIN"/>
+                <input th:value="${vehicle.getVehicleId()}" hidden="hidden" type="text" name="vehicleId"/>
             </td>
         </tr>
         <tr>
@@ -26,28 +29,34 @@
         </tr>
         <tr>
             <td>
-                <label>Date of Registration: </label>
+                <label for="regDate">Date of Registration: </label>
             </td>
             <td>
-                <input th:value="${vehicle.getDateOfRegistration()}" type="text" name="dateOfRegistration"/>
+                <input id="regDate" th:value="${vehicle.getDateOfRegistration()}" type="text"
+                       name="dateOfRegistration"/>
             </td>
         </tr>
         <tr>
             <td>
-                <label>Vehicle Type: </label>
+                <label for="type">Vehicle Type: </label>
             </td>
             <td>
-                <input th:value="${vehicle.getVehicleTypeModel().getName()}" type="text" name="vehicleTypeModel"/>
+                <input id="type" th:value="${vehicle.getVehicleTypeModel().getName()}" type="text"
+                       name="vehicleTypeModel.name"/>
             </td>
         </tr>
         <tr>
-            <td></td>
+            <td>
+                <a href="/vehicles/findAllModels">Cancel and go back</a>
+            </td>
             <td>
                 <input type="submit" value="Save"/>
             </td>
         </tr>
     </table>
 </form>
-
+<ul>
+    <li th:each="err : ${#fields.errors('vehicle.*')}" th:text="${err}" />
+</ul>
 </body>
 </html>

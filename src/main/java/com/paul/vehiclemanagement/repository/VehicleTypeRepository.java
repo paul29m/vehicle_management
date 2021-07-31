@@ -1,9 +1,9 @@
 package com.paul.vehiclemanagement.repository;
 
-import com.paul.vehiclemanagement.domain.Vehicle;
+import com.paul.vehiclemanagement.domain.VehicleType;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface VehicleRepository extends CrudRepository<Vehicle, Long> {
+public interface VehicleTypeRepository extends CrudRepository<VehicleType, Long> {
 }

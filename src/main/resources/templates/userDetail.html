@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>User Detail</title>
+    <title>Home</title>
 </head>
 <body>
     <p>Hello, you are connected <a href="/logout">logout</a></p>
@@ -11,6 +11,6 @@
     <p>Gender: <span th:text="${user.getGender()}"></span></p>
     <p>Role: <span th:text="${user.getRole()}"></span></p>
 
-    <p>View All  <a href="/api/vehicles/findOne">vehicles</a></p>
+    <p>View All  <a href="/vehicles/findAllModels">vehicles</a></p>
 </body>
 </html>

@@ -1,18 +1,15 @@
 package com.paul.vehiclemanagement.service;
 
-import org.springframework.http.ResponseEntity;
-
 import java.util.List;
+import java.util.Optional;
 
 public interface IManagementService<T> {
 
-    ResponseEntity create(T vehicleTypeModel);
-
     List<T> getAll();
 
-    T getById(Long id);
+    Optional<T> getById(Long id);
 
-    ResponseEntity update(T vehicleTypeModel);
+    Optional<T> saveOrUpdate(T vehicleTypeModel);
 
-    ResponseEntity delete(Long id);
+    Optional<T> delete(Long id);
 }

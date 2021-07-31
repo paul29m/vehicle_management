@@ -1,15 +1,11 @@
 package com.paul.vehiclemanagement.service;
 
 import com.paul.vehiclemanagement.model.VehiclePartModel;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 public class VehiclePartService implements IManagementService<VehiclePartModel> {
-    @Override
-    public ResponseEntity create(VehiclePartModel vehicleTypeModel) {
-        return ResponseEntity.ok().build();
-    }
 
     @Override
     public List<VehiclePartModel> getAll() {
@@ -17,17 +13,17 @@ public class VehiclePartService implements IManagementService<VehiclePartModel> 
     }
 
     @Override
-    public VehiclePartModel getById(Long id) {
+    public Optional<VehiclePartModel> getById(Long id) {
         return null;
     }
 
     @Override
-    public ResponseEntity update(VehiclePartModel vehicleTypeModel) {
-        return ResponseEntity.ok().build();
+    public Optional<VehiclePartModel> saveOrUpdate(VehiclePartModel vehiclePartModel) {
+        return null;
     }
 
     @Override
-    public ResponseEntity delete(Long id) {
-        return ResponseEntity.ok().build();
+    public Optional<VehiclePartModel> delete(Long id) {
+        return null;
     }
 }
