@@ -7,56 +7,62 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
-<h4>Vehicle</h4>
-<form action="#" th:action="@{/vehicles/saveOrUpdateByModel}" th:object="${vehicle}" method="post">
-    <table>
-        <tr>
-            <td>
-                <label for="vin">VIN: </label>
-            </td>
-            <td>
-                <input id="vin" th:value="${vehicle.getVIN()}" type="text" name="VIN"/>
-                <input th:value="${vehicle.getVehicleId()}" hidden="hidden" type="text" name="vehicleId"/>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label for="plate">Plate Number: </label>
-            </td>
-            <td>
-                <input id="plate" th:value="${vehicle.getPlateNumber()}" type="text" name="plateNumber"/>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label for="regDate">Date of Registration: </label>
-            </td>
-            <td>
-                <input id="regDate" th:value="${vehicle.getDateOfRegistration()}" type="text"
-                       name="dateOfRegistration"/>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label for="type">Vehicle Type: </label>
-            </td>
-            <td>
-                <input id="type" th:value="${vehicle.getVehicleTypeModel().getName()}" type="text"
-                       name="vehicleTypeModel.name"/>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <a href="/vehicles/findAllModels">Cancel and go back</a>
-            </td>
-            <td>
-                <input type="submit" value="Save"/>
-            </td>
-        </tr>
-    </table>
-</form>
-<ul>
-    <li th:each="err : ${#fields.errors('vehicle.*')}" th:text="${err}" />
-</ul>
+<div class="container center">
+    <h4 class="align-middle">Vehicle</h4>
+    <form action="#" th:action="@{/vehicles/saveOrUpdateByModel}" th:object="${vehicle}" method="post" class="form">
+        <table class="table">
+            <tr>
+                <td>
+                    <label for="vin">VIN: </label>
+                </td>
+                <td>
+                    <input id="vin" th:value="*{VIN}" type="text" th:field="*{VIN}"/>
+                    <input th:value="${vehicle.getVehicleId()}" hidden="hidden" type="text" name="vehicleId"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="plate">Plate Number: </label>
+                </td>
+                <td>
+                    <input id="plate" th:value="${vehicle.getPlateNumber()}" type="text" name="plateNumber"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="regDate">Date of Registration: </label>
+                </td>
+                <td>
+                    <input id="regDate" th:value="${vehicle.getDateOfRegistration()}" type="text"
+                           name="dateOfRegistration"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="type">Vehicle Type: </label>
+                </td>
+                <td>
+                    <input id="type" th:value="${vehicle.getVehicleTypeModel().getName()}" type="text"
+                           name="vehicleTypeModel.name"/>
+                    <input th:value="${vehicle.getVehicleTypeModel().getVehicleTypeId()}"
+                           hidden="hidden" name="vehicleTypeModel.vehicleTypeId"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a class="btn btn-secondary" href="/vehicles/findAllModels">Close and go back</a>
+                </td>
+                <td>
+                    <input class="btn btn-primary" type="submit" value="Save"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <ul>
+        <li th:each="err : ${errors}" th:text="${err.defaultMessage}" class="text-danger"></li>
+        <li th:if="${runtimeError}" th:text="${runtimeError}" class="text-danger"></li>
+        <li th:if="${success}" th:text="${success}" class="text-info"></li>
+    </ul>
+</div>
 </body>
 </html>

@@ -1,10 +1,9 @@
 package com.paul.vehiclemanagement.model;
 
-import com.paul.vehiclemanagement.domain.VehicleType;
+import com.paul.vehiclemanagement.domain.VehiclePart;
 import lombok.*;
 
 import java.io.Serializable;
-import java.util.List;
 
 
 @NoArgsConstructor
@@ -12,11 +11,15 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-public class VehiclePartModel  implements Serializable {
+@ToString(exclude = "vehiclePartId")
+public class VehiclePartModel implements Serializable {
 
     private Long vehiclePartId;
 
     private String name;
 
-    private List<VehicleType> vehicleTypes;
+    public VehiclePartModel(VehiclePart vehiclePart) {
+        this.vehiclePartId = vehiclePart.getVehiclePartId();
+        this.name = vehiclePart.getName();
+    }
 }

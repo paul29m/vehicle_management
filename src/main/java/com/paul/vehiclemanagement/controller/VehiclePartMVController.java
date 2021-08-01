@@ -1,32 +1,33 @@
 package com.paul.vehiclemanagement.controller;
 
-import com.paul.vehiclemanagement.model.VehicleModel;
+import com.paul.vehiclemanagement.model.VehiclePartModel;
 import com.paul.vehiclemanagement.service.IManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RequestMapping("/vehicles/")
+@RequestMapping("/vehicleParts")
 @Controller
-public class VehicleManagementMVController extends AbstractMVController<VehicleModel> {
+public class VehiclePartMVController extends AbstractMVController<VehiclePartModel> {
 
     @Autowired
-    public VehicleManagementMVController(IManagementService<VehicleModel> vehicleTypeService) {
-        this.service = vehicleTypeService;
+    public VehiclePartMVController(IManagementService<VehiclePartModel> managementService) {
+        this.service = managementService;
     }
-    
+
     @Override
     String getListView() {
-        return "vehicleList";
+        return "vehiclePartsList";
     }
 
     @Override
     String getDetailView() {
-        return "vehicleDetails";
+        return "vehiclePartDetails";
     }
 
     @Override
     String getViewAttribute() {
-        return "vehicle";
+        return "vehiclePart";
     }
+
 }
