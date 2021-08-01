@@ -47,5 +47,5 @@ class   VehicleManagementApplicationTests {
         Optional<VehicleModel> foundVehicle = vehicleManagementService.getById(vehicleId);
         Assert.isTrue(!foundVehicle.isPresent(), "Vehicle should not be found.");
     }
-    
+
 }

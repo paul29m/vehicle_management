@@ -12,12 +12,18 @@
 <table class="table table-hover">
     <thead class="thead-dark">
     <tr>
-        <th style="width: 30%;">Name</th>
+        <th style="width: 90%;">Name</th>
+        <th>Delete</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="vehiclePart : ${elements}">
         <td><a th:href="@{|/vehicleParts/findOne/${vehiclePart.getVehiclePartId()}|}" th:text="${vehiclePart.getName()}"></a></td>
+        <td>
+            <form th:action="@{|/vehicleParts/delete/${vehiclePart.getVehiclePartId()}|}" method="post">
+                <button class="btn btn-danger" type="submit">X</button>
+            </form>
+        </td>
     </tr>
     <tr>
         <td colspan="2">

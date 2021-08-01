@@ -4,7 +4,9 @@ import com.paul.vehiclemanagement.Utils.InvalidDataException;
 import com.paul.vehiclemanagement.domain.VehiclePart;
 import com.paul.vehiclemanagement.model.VehiclePartModel;
 import com.paul.vehiclemanagement.repository.VehiclePartRepository;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -37,7 +39,27 @@ public class VehiclePartService implements IManagementService<VehiclePartModel> 
 
     @Override
     public Optional<VehiclePartModel> saveOrUpdate(VehiclePartModel vehiclePartModel) {
-        return null;
+        if (vehiclePartModel == null || vehiclePartModel.getName() == null) {
+            throw new InvalidDataException("Data entered is invalid.");
+        }
+        VehiclePart vehiclePart = vehiclePartModel.getVehiclePartId() != null ? vehiclePartRepository.findById(vehiclePartModel.getVehiclePartId())
+                .orElseGet(VehiclePart::new) : new VehiclePart();
+        vehiclePart.setName(vehiclePartModel.getName().toUpperCase());
+        try {
+            vehiclePart = vehiclePartRepository.save(vehiclePart);
+            vehiclePartModel = new VehiclePartModel(vehiclePart);
+        } catch (DataIntegrityViolationException e) {
+            Throwable t = e.getCause();
+            while ((t != null) && !(t instanceof ConstraintViolationException)) {
+                t = t.getCause();
+            }
+            if (t instanceof ConstraintViolationException) {
+                throw new InvalidDataException("Vehicle Part with given name already exists.");
+            }
+            throw new InvalidDataException("Data could not be saved.");
+        }
+
+        return Optional.of(vehiclePartModel);
     }
 
     @Override

@@ -38,7 +38,7 @@ public class VehicleTypeService implements IManagementService<VehicleTypeModel> 
 
     @Override
     public Optional<VehicleTypeModel> saveOrUpdate(VehicleTypeModel vehicleTypeModel) {
-        if (vehicleTypeModel == null) {
+        if (vehicleTypeModel == null || vehicleTypeModel.getName() == null) {
             throw new InvalidDataException("Data entered is invalid.");
         }
         VehicleType vehicleType = vehicleTypeModel.getVehicleTypeId() != null ? vehicleTypeRepository.findById(vehicleTypeModel.getVehicleTypeId())
@@ -62,7 +62,7 @@ public class VehicleTypeService implements IManagementService<VehicleTypeModel> 
     }
 
     private void updateEntity(VehicleType vehicleType, VehicleTypeModel vehicleTypeModel) {
-        vehicleType.setName(vehicleTypeModel.getName());
+        vehicleType.setName(vehicleTypeModel.getName().toUpperCase());
     }
 
     @Override

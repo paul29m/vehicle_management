@@ -23,7 +23,7 @@ public class VehicleTypeModel implements Serializable {
     private Long vehicleTypeId;
 
     @NotEmpty(message = "Vehicle Type cannot be empty.")
-    @Size(min = 1, max = 255, message = "Vehicle Type size must be between 1 and 25.")
+    @Size(min = 1, max = 255, message = "Vehicle Type size must be between 1 and 255.")
     @Pattern(regexp = "[a-zA-Z0-9 ]+", message = "Vehicle Type must not contain special characters.")
     private String name;
 
