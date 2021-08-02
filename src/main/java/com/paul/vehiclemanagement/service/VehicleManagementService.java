@@ -7,6 +7,7 @@ import com.paul.vehiclemanagement.model.VehicleModel;
 import com.paul.vehiclemanagement.model.VehicleTypeModel;
 import com.paul.vehiclemanagement.repository.VehicleRepository;
 import com.paul.vehiclemanagement.repository.VehicleTypeRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class VehicleManagementService implements IManagementService<VehicleModel> {
 
     @Autowired
@@ -61,6 +63,7 @@ public class VehicleManagementService implements IManagementService<VehicleModel
             vehicleModel = new VehicleModel(vehicle);
         } catch (DataIntegrityViolationException e) {
             Throwable t = e.getCause();
+            log.warn("Failed to save/update: {}", vehicleModel, e);
             while ((t != null) && !(t instanceof ConstraintViolationException)) {
                 t = t.getCause();
             }
