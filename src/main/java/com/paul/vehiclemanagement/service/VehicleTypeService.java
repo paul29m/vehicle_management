@@ -1,8 +1,10 @@
 package com.paul.vehiclemanagement.service;
 
 import com.paul.vehiclemanagement.Utils.InvalidDataException;
+import com.paul.vehiclemanagement.domain.VehiclePart;
 import com.paul.vehiclemanagement.domain.VehicleType;
 import com.paul.vehiclemanagement.model.VehicleTypeModel;
+import com.paul.vehiclemanagement.repository.VehiclePartRepository;
 import com.paul.vehiclemanagement.repository.VehicleTypeRepository;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +21,9 @@ public class VehicleTypeService implements IManagementService<VehicleTypeModel> 
 
     @Autowired
     private VehicleTypeRepository vehicleTypeRepository;
+
+    @Autowired
+    private VehiclePartRepository vehiclePartRepository;
 
     @Override
     public List<VehicleTypeModel> getAll() {
@@ -63,6 +69,20 @@ public class VehicleTypeService implements IManagementService<VehicleTypeModel> 
 
     private void updateEntity(VehicleType vehicleType, VehicleTypeModel vehicleTypeModel) {
         vehicleType.setName(vehicleTypeModel.getName().toUpperCase());
+        if (vehicleTypeModel.getVehiclePartsStringList() != null) {
+            List<String> vehiclePartsNameList = Arrays.asList(vehicleTypeModel.getVehiclePartsStringList().split(","));
+            if (!vehiclePartsNameList.isEmpty()) {
+                vehicleType.setVehicleParts(new ArrayList<>());
+                vehiclePartsNameList.forEach(name -> {
+                    Optional<VehiclePart> part = vehiclePartRepository.findByName(name.toUpperCase().trim());
+                    if (part.isPresent()) {
+                        vehicleType.getVehicleParts().add(part.get());
+                    } else {
+                        throw new InvalidDataException("Can not save vehicle type. Part <" + name + "> is not valid.");
+                    }
+                });
+            }
+        }
     }
 
     @Override
